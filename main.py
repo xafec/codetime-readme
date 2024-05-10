@@ -64,7 +64,7 @@ def getStats():
         ln = len(l["field"])
         ln_text = len(time_text)
         percent = l["minutes"] / total_time * 100
-        op = f"{l['field']}{' '*(12-ln)}{time_text}{' '*(20-ln_text)}{makeGraph(percent)}   {percent:.2f} %"
+        op = f"{l['field'].capitalize()}{' '*(12-ln)}{time_text}{' '*(20-ln_text)}{makeGraph(percent)}   {percent:.2f} %"
         data_list.append(op)
     data = " \n".join(data_list)
     return "```txt\n" + total_time_text + data + "\n```"
