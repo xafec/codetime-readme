@@ -1,11 +1,31 @@
-FROM docker.io/python:3-slim
+FROM docker.io/python:3-slim AS builder
+
+ENV POETRY_HOME="/opt/poetry" \
+  POETRY_VIRTUALENVS_IN_PROJECT=1 \
+  POETRY_NO_INTERACTION=1
+
+ENV PATH="$POETRY_HOME/bin:$PATH"
+
+RUN apt-get update \
+  && apt-get install -y --no-install-recommends curl \
+  && curl -sSL https://install.python-poetry.org | python3 -
 
 WORKDIR /app
 
-COPY . /app
+COPY poetry.lock pyproject.toml ./
 
-RUN pip install poetry
+RUN poetry install --no-root --no-ansi --without dev
 
-RUN poetry install
+FROM docker.io/python:3-slim
 
-CMD ["poetry", "run", "python", "/app/main.py"]
+ENV PYTHONDONTWRITEBYTECODE=1 \
+  PYTHONUNBUFFERED=1 \
+  PATH="/app/.venv/bin:$PATH"
+
+WORKDIR /app
+
+COPY --from=builder /app/.venv ./.venv
+
+COPY . .
+
+CMD ["python", "main.py"]
