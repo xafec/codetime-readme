@@ -1,7 +1,11 @@
 FROM docker.io/python:3-slim
 
-ADD requirements.txt /requirements.txt
-ADD main.py /main.py
-RUN pip install -r requirements.txt
+WORKDIR /app
 
-CMD ["python", "/main.py"]
+COPY . /app
+
+RUN pip install poetry
+
+RUN poetry install
+
+CMD ["poetry", "run", "python", "/app/main.py"]

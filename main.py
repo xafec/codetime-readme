@@ -4,7 +4,6 @@ import re
 import os
 from github import Github
 from requests.cookies import RequestsCookieJar
-import time
 
 # --- CodeTime Specific Configuration ---
 CODETIME_API_TOP_LANGUAGES_ENDPOINT = (
