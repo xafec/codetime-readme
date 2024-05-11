@@ -1,0 +1,22 @@
+{
+  "name": "codetime-readme",
+  "version": "1.0.0",
+  "description": "CodeTime Weekly Stats on your Profile Readme.",
+  "main": "index.js",
+  "keywords": [],
+  "author": "xafec",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.12.11",
+    "tsx": "^4.9.5",
+    "typescript": "^5.4.5"
+  },
+  "dependencies": {
+    "@octokit/rest": "^20.1.1",
+    "axios": "^1.6.8",
+    "dotenv": "^16.4.5"
+  },
+  "scripts": {
+    "start": "tsx ./src/main.ts"
+  }
+}
