@@ -4,6 +4,7 @@ import re
 import os
 from github import Github
 from requests.cookies import RequestsCookieJar
+import time
 
 # --- CodeTime Specific Configuration ---
 CODETIME_API_TOP_LANGUAGES_ENDPOINT = (
@@ -25,8 +26,8 @@ START_COMMENT = "<!--START_SECTION:codetime-->"
 END_COMMENT = "<!--END_SECTION:codetime-->"
 
 listReg = f"{START_COMMENT}[\\s\\S]+{END_COMMENT}"
-user = os.getenv("INPUT_USERNAME")
-ghtoken = os.getenv("INPUT_GH_TOKEN")
+user = os.getenv("INPUT_USERNAME") or ""
+ghtoken = os.getenv("INPUT_GH_TOKEN") or ""
 
 cookies = RequestsCookieJar()
 cookies.set("CODETIME_SESSION", CODETIME_API_KEY or "")
@@ -84,7 +85,8 @@ def generatenewReadme(stats: str, readme: str):
 
 if __name__ == "__main__":
     g = Github(ghtoken)
-    repo = g.get_repo(f"{user}/{user}")
+    repositories_path = "/".join([user, user])
+    repo = g.get_repo(repositories_path)
     contents = repo.get_readme()
     stats = getStats()
     rdmd = decodeReadme(contents.content)
