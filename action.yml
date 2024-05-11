@@ -3,15 +3,16 @@ author: "xafec"
 description: "Add a CodeTime Coding Activity graph in your Readme"
 
 inputs:
-  INPUT_USERNAME:
+  USERNAME:
     description: "Your CodeTime username"
     default: ${{ github.repository_owner }}
 
-  INPUT_GH_TOKEN:
+  GH_TOKEN:
     description: "Your GitHub token"
+    required: true
     default: ${{ github.token }}
 
-  INPUT_CODETIME_COOKIE_KEY:
+  CODETIME_COOKIE_KEY:
     description: "Your CodeTime cookie key"
     required: true
 
