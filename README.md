@@ -57,7 +57,7 @@ jobs:
     name: CodeTime's Graph in Readme
     runs-on: ubuntu-latest
     steps:
-      - uses: xafec/codetime-readme@beta09
+      - uses: xafec/codetime-readme@v1.0
         with:
           CODETIME_COOKIE_KEY: ${{ secrets.CODETIME_COOKIE_KEY }}
 ```
