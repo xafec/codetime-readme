@@ -62,3 +62,6 @@ jobs:
           CODETIME_COOKIE_KEY: ${{ secrets.CODETIME_COOKIE_KEY }}
 ```
 
+## Contribution
+
+Feel free to contribute to this project. Any kind of help is appreciated ❤️
