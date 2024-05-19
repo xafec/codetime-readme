@@ -1,56 +1,54 @@
 # CodeTime Stats in Readme
 
-<p>
-<a href="https://codetime.dev">CodeTime</a> Stats on your Profile Readme:
-</p>
+Display your [CodeTime](https://codetime.dev) stats on your Profile Readme:
 
 ![preview](./assets/image.png)
 
-## Update your Readme
+## How to Update your Readme
 
-Add a comment to your README like the follows
+To incorporate CodeTime stats in your README, add the following comment:
 
 ```md
 <!--START_SECTION:codetime-->
 <!--END_SECTION:codetime-->
 ```
 
-The lines will be our entrypoints for this action.
+These lines will serve as entry points for this action.
 
-## Using it
+## Setup
 
-To use CodeTime Stats in your README, you need to obtain a cookie token from CodeTime and add it to your repository secrets. Here's how:
+To use CodeTime Stats in your README, you need to obtain a cookie token from CodeTime and add it to your repository secrets. Follow these steps:
 
-1. Go to the [CodeTime website](https://codetime.dev) and sign in to your account.
-2. Once you're signed in, open the developer tools in your browser (usually by right-clicking on the page and selecting `Inspect` or `Inspect Element`).
-3. In the developer tools, navigate to the `Network` tab.
-4. Refresh the page to see the network requests.
-5. Look for a request with the name like `top?field=platform&minutes...` and click on it.
-6. In the request details, go to the `Headers` section.
-7. Find the cookie and copy everything after CODETIME_SESSION=. Example: `CODETIME_SESSION=MASDkhiagbdyhoi21d89y21bndsgaDPADHoiha98yd9qw=`, `MASDkhiagbdyhoi21d89y21bndsgaDPADHoiha98yd9qw=` is the token.
+1. Visit the [CodeTime website](https://codetime.dev) and log in to your account.
+2. Open the developer tools in your browser (usually by right-clicking on the page and selecting `Inspect` or `Inspect Element`).
+3. Navigate to the `Network` tab in the developer tools.
+4. Refresh the page to view the network requests.
+5. Find a request named `top?field=platform&minutes...` and select it.
+6. In the request details, navigate to the `Headers` section.
+7. Locate the cookie and copy everything after CODETIME_SESSION=. For example, if you see `CODETIME_SESSION=MASDkhiagbdyhoi21d89y21bndsgaDPADHoiha98yd9qw=`, `MASDkhiagbdyhoi21d89y21bndsgaDPADHoiha98yd9qw=` is the token.
 
-Once you have the cookie token, you can add it to your repository secrets:
+After obtaining the cookie token, add it to your repository secrets:
 
-1. Go to your repository on GitHub.
-2. Click on the `Settings` tab.
+1. Navigate to your repository on GitHub.
+2. Select the `Settings` tab.
 3. In the left sidebar, click on `Secrets and variables` and `Actions`.
 4. Click on `New repository secret`.
-5. Enter a name for the secret (e.g., `CODETIME_COOKIE_KEY`) and paste the cookie token value in the `Value` field.
+5. Provide a name for the secret (e.g., `CODETIME_COOKIE_KEY`) and paste the cookie token value in the `Value` field.
 6. Click on `Add secret` to save it.
 
-That's it. The Action runs everyday at 00.00 UTC
+The Action runs every 6 hours on UTC.
 
 ### Profile Repository
 
-**You wouldn't need an GitHub Access Token since GitHub Actions already makes one for you.**
+**No need for a GitHub Access Token as GitHub Actions already provides one for you.**
 
-Here is a sample workflow file for you to get started:
+Here's a sample workflow file to get you started:
 ```yml
 name: CodeTime - Readme
 
 on:
   schedule:
-    - cron: "0 0 * * *"
+    - cron: "0 */6 * * *"
 
 jobs:
   update-readme:
@@ -62,6 +60,13 @@ jobs:
           CODETIME_COOKIE_KEY: ${{ secrets.CODETIME_COOKIE_KEY }}
 ```
 
-## Contribution
+## Contributions
 
-Feel free to contribute to this project. Any kind of help is appreciated ❤️
+Contributions to this project are welcome. Any form of help is greatly appreciated ❤️
+
+---
+
+**Note:** I'm not particularly proficient in Python and Docker, so if you find this project interesting, feel free to develop it further. This project was created based on the [waka-readme](https://github.com/athul/waka-readme/tree/0.1) version 0.1.
+
+---
+[English](./README.md) | [Русский](./README.ru.md)
