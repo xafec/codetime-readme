@@ -1,0 +1,9 @@
+services:
+  codetime-readme:
+    env_file:
+      - .env
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: codetime-readme:dev
+    container_name: codetime-readme

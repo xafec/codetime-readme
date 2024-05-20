@@ -17,6 +17,8 @@
     "dotenv": "^16.4.5"
   },
   "scripts": {
-    "start": "tsx ./src/main.ts"
+    "start": "tsx ./src/main.ts",
+    "podman:up": "podman compose -p codetime-readme -f ./docker-compose.yml up",
+    "podman:down": "podman compose -p codetime-readme -f ./docker-compose.yml down"
   }
 }
