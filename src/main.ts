@@ -72,25 +72,29 @@ function generatenewReadme(stats: string, readme: string) {
   return newReadme;
 }
 
-(async function main() {
-  const octokit = new Octokit({ auth: ghtoken });
-  const { data: contents } = await octokit.repos.getReadme({
-    owner: user,
-    repo: user,
-  });
-  const stats = await getStats();
-  const rdmd = decodeReadme(contents.content);
-  const newreadme = generatenewReadme(stats, rdmd);
-  if (newreadme !== rdmd) {
-    await octokit.repos.createOrUpdateFileContents({
+(async () => {
+  try {
+    const octokit = new Octokit({ auth: ghtoken });
+    const { data: contents } = await octokit.repos.getReadme({
       owner: user,
       repo: user,
-      path: contents.path,
-      message: "Updated with CodeTime Stats",
-      content: Buffer.from(newreadme).toString("base64"),
-      sha: contents.sha,
-      branch: "main",
     });
-    console.log("Updated with CodeTime Stats");
+    const stats = await getStats();
+    const rdmd = decodeReadme(contents.content);
+    const newreadme = generatenewReadme(stats, rdmd);
+    if (newreadme !== rdmd) {
+      await octokit.repos.createOrUpdateFileContents({
+        owner: user,
+        repo: user,
+        path: contents.path,
+        message: "Updated with CodeTime Stats",
+        content: Buffer.from(newreadme).toString("base64"),
+        sha: contents.sha,
+        branch: "main",
+      });
+      console.log("Updated with CodeTime Stats");
+    }
+  } catch (error) {
+    console.error("An error occurred:", error);
   }
 })();

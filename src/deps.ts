@@ -1,9 +1,11 @@
+import { getSecureEnv } from "./helpers";
+
 // API
 export const CODETIME_API_TOP_LANGUAGES_ENDPOINT =
   "https://api.codetime.dev/top?field=language&minutes=10080&limit=5";
 export const CODETIME_API_TOTAL_TIME_ENDPOINT =
   "https://api.codetime.dev/stats?by=time&limit=7&unit=days";
-export const CODETIME_API_KEY = process.env.INPUT_CODETIME_COOKIE_KEY;
+export const CODETIME_API_KEY = getSecureEnv("INPUT_CODETIME_COOKIE_KEY");
 
 // Time Constants
 export const MS_OF_HOUR = 3600000;
