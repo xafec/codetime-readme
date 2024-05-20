@@ -1,7 +1,13 @@
-FROM docker.io/python:3-slim
+FROM node:20
 
-ADD requirements.txt /requirements.txt
-ADD main.py /main.py
-RUN pip install -r requirements.txt
+WORKDIR /
 
-CMD ["python", "/main.py"]
+COPY package*.json ./
+
+RUN npm install
+
+COPY . .
+
+EXPOSE 3000
+
+CMD [ "npm", "start" ]
