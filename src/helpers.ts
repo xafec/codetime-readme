@@ -1,44 +1,31 @@
+import { allowedDays } from "./constants.ts";
+
+type AllowedDays = (typeof allowedDays)[number];
+
+const API_BASE_URL = "https://api.codetime.dev";
+
+class EnvVarError extends Error {
+  constructor(key: string) {
+    super(`Environment variable ${key} is not set`);
+    this.name = "EnvVarError";
+  }
+}
+
 export const getSecureEnv = (key: string): string => {
   const value = process.env[key];
   if (!value) {
-    throw new Error(`Environment variable ${key} is not set`);
+    throw new EnvVarError(key);
   }
   return value;
 };
 
-export const getEndpointWithTime = (days: string = "7"): string => {
-  const defaultDays = Number(days);
-  const allowedDays = [1, 3, 7, 14, 28, 90];
+export const getEndpointWithTime = (days: AllowedDays = 7): string => {
   const minutesPerDay = 1440;
-  try {
-    const daysParam = allowedDays.includes(Number(days))
-      ? Number(days)
-      : defaultDays;
-    const minutesParam = daysParam * minutesPerDay;
+  const minutesParam = days * minutesPerDay;
 
-    return `https://api.codetime.dev/top?field=language&minutes=${minutesParam}&limit=5`;
-  } catch (error) {
-    console.error(
-      "An error occurred while getting the endpoint with time:",
-      error
-    );
-    throw error;
-  }
+  return `${API_BASE_URL}/top?field=language&minutes=${minutesParam}&limit=5`;
 };
 
-export const getEndpointWithTotalTime = (days: string = "7"): string => {
-  const defaultDays = days;
-  const allowedDays = ["1", "3", "7", "14", "28", "90"];
-
-  try {
-    const daysParam = allowedDays.includes(days) ? days : defaultDays;
-
-    return `https://api.codetime.dev/stats?by=time&limit=${daysParam}&unit=days`;
-  } catch (error) {
-    console.error(
-      "An error occurred while getting the endpoint with total time:",
-      error
-    );
-    throw error;
-  }
+export const getEndpointWithTotalTime = (days: AllowedDays = 7): string => {
+  return `${API_BASE_URL}/stats?by=time&limit=${days}&unit=days`;
 };

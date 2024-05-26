@@ -1,17 +1,18 @@
 import {
-  getSecureEnv,
   getEndpointWithTime,
   getEndpointWithTotalTime,
+  getSecureEnv,
 } from "./helpers";
 
-// API
-export const CODETIME_API_TOP_LANGUAGES_ENDPOINT = getEndpointWithTime(
-  process.env.INPUT_DAYS_COUNT
-);
+export const allowedDays = [1, 3, 7, 14, 28, 90] as const;
 
-export const CODETIME_API_TOTAL_TIME_ENDPOINT = getEndpointWithTotalTime(
-  process.env.INPUT_DAYS_COUNT
-);
+type AllowedDays = (typeof allowedDays)[number];
+
+const days = process.env.INPUT_DAYS_COUNT as unknown as AllowedDays;
+
+export const CODETIME_API_TOP_LANGUAGES_ENDPOINT = getEndpointWithTime(days);
+
+export const CODETIME_API_TOTAL_TIME_ENDPOINT = getEndpointWithTotalTime(days);
 
 export const CODETIME_API_KEY = getSecureEnv("INPUT_CODETIME_COOKIE_KEY");
 
