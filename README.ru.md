@@ -36,8 +36,6 @@
 5. Укажите имя для секрета (например, `CODETIME_COOKIE_KEY`) и вставьте значение токена cookie в поле `Value`.
 6. Нажмите на `Add secret`, чтобы сохранить его.
 
-Действие выполняется каждые 6 часов по UTC.
-
 ### Репозиторий профиля
 
 **Нет необходимости в токене доступа GitHub, так как GitHub Actions уже предоставляет его для вас.**
@@ -48,6 +46,7 @@ name: CodeTime - Readme
 
 on:
   schedule:
+    # выполняется каждые 6 часов по UTC
     - cron: "0 */6 * * *"
 
 jobs:
@@ -55,9 +54,10 @@ jobs:
     name: CodeTime's Graph in Readme
     runs-on: ubuntu-latest
     steps:
-      - uses: xafec/codetime-readme@v1.0
+      - uses: xafec/codetime-readme@main
         with:
-          CODETIME_COOKIE_KEY: ${{ secrets.CODETIME_COOKIE_KEY }}
+          CODETIME_COOKIE_KEY: ${{ secrets.CODETIME_COOKIE_KEY }} # обязательно
+          DAYS_COUNT: "7" # необязательно
 ```
 
 ## Вклад
@@ -66,7 +66,7 @@ jobs:
 
 ---
 
-**Примечание:** Я не особенно хорош в Python и Docker, поэтому если вам интересен этот проект, не стесняйтесь развивать его дальше. Этот проект был создан на основе [waka-readme](https://github.com/athul/waka-readme/tree/0.1) версии 0.1.
+**Примечание:** Я не особенно хорош в Python и Docker, поэтому если вам интересен этот проект, не стесняйтесь развивать его дальше. Этот проект был создан на основе [waka-readme](https://github.com/athul/waka-readme/tree/0.1.1) версии 0.1.1.
 
 ---
 [English](./README.md) | [Русский](./README.ru.md)

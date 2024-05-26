@@ -36,8 +36,6 @@ After obtaining the cookie token, add it to your repository secrets:
 5. Provide a name for the secret (e.g., `CODETIME_COOKIE_KEY`) and paste the cookie token value in the `Value` field.
 6. Click on `Add secret` to save it.
 
-The Action runs every 6 hours on UTC.
-
 ### Profile Repository
 
 **No need for a GitHub Access Token as GitHub Actions already provides one for you.**
@@ -48,6 +46,7 @@ name: CodeTime - Readme
 
 on:
   schedule:
+    # runs every 6 hours on UTC
     - cron: "0 */6 * * *"
 
 jobs:
@@ -55,9 +54,10 @@ jobs:
     name: CodeTime's Graph in Readme
     runs-on: ubuntu-latest
     steps:
-      - uses: xafec/codetime-readme@v1.0
+      - uses: xafec/codetime-readme@main
         with:
-          CODETIME_COOKIE_KEY: ${{ secrets.CODETIME_COOKIE_KEY }}
+          CODETIME_COOKIE_KEY: ${{ secrets.CODETIME_COOKIE_KEY }} # required
+          DAYS_COUNT: "7" # optional
 ```
 
 ## Contributions
@@ -66,7 +66,7 @@ Contributions to this project are welcome. Any form of help is greatly appreciat
 
 ---
 
-**Note:** I'm not particularly proficient in Python and Docker, so if you find this project interesting, feel free to develop it further. This project was created based on the [waka-readme](https://github.com/athul/waka-readme/tree/0.1) version 0.1.
+**Note:** I'm not particularly proficient in Python and Docker, so if you find this project interesting, feel free to develop it further. This project was created based on the [waka-readme](https://github.com/athul/waka-readme/tree/0.1.1) version 0.1.1.
 
 ---
 [English](./README.md) | [Русский](./README.ru.md)

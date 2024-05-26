@@ -16,6 +16,10 @@ inputs:
     description: "Your CodeTime cookie key"
     required: true
 
+  DAYS_COUNT:
+    description: "Number of days to show in the graph"
+    default: "7"
+
 runs:
   using: docker
   image: Dockerfile
